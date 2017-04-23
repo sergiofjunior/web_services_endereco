@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		  http://www.springframework.org/schema/context
+		  http://www.springframework.org/schema/context/spring-context.xsd
+		  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:annotation-config />
+
+	<!-- Beans -->
+    <bean id="cepService" class="com.webservices.service.cep.CEPServiceImpl"/>
+    <bean id="cepDao" class="com.webservices.dao.cep.CEPDAOImpl">
+		<constructor-arg ref="enderecosMap" />
+    </bean>
+    <bean id="enderecoDAO" class="com.webservices.dao.endereco.InMemoryEnderecoDAOImpl"/>
+    <bean id="enderecoService" class="com.webservices.service.endereco.EnderecoServiceImpl"/>
+    
+    <!-- Mock cep e endereços -->
+    <util:map id="enderecosMap">
+    	<entry key="12345678" value-ref="endereco1" />
+    	<entry key="12345000" value-ref="endereco2" />
+    </util:map>
+    
+    <bean id="endereco1" class="com.webservices.entity.endereco.EnderecoEntity">
+    	<property name="CEP" value="12345678"/>
+    	<property name="rua" value="Justino Ribeiro"/>
+    	<property name="bairro" value="Jardim dos Estados"/>
+    	<property name="cidade" value="Poços de Caldas"/>
+    	<property name="estado" value="MG"/>
+    </bean>
+
+    <bean id="endereco2" class="com.webservices.entity.endereco.EnderecoEntity">
+    	<property name="CEP" value="12345000"/>
+    	<property name="rua" value="Assis Figueiredo"/>
+    	<property name="bairro" value="Centro"/>
+    	<property name="cidade" value="Poços de Caldas"/>
+    	<property name="estado" value="MG"/>
+    </bean>
+        
+</beans>
